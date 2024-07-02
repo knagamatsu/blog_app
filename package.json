@@ -1,0 +1,42 @@
+{
+  "name": "electron-blog-app",
+  "version": "1.0.0",
+  "description": "A blog application built with Electron, React, and FastAPI",
+  "author": "Your Name <your.email@example.com>",
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm start\" \"cd backend && uvicorn app.main:app\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "cd frontend && npm run build",
+    "package": "npm run build && electron-builder build --mac --win --linux -c.extraMetadata.main=main.js --publish never"
+  },
+  "build": {
+    "appId": "com.yourcompany.blogapp",
+    "files": [
+      "build/**/*",
+      "main.js"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icons/blog_app.png"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^31.1.0",
+    "electron-builder": "^24.13.3",
+    "python-shell": "^5.0.0",
+    "wait-on": "^7.2.0"
+  }
+}

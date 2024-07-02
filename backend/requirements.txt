@@ -1,0 +1,4 @@
+sqlalchemy
+databases[sqlite] 
+aiosqlite
+uvicorn
